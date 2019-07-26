@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 2913219151882312567}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -94,8 +94,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 7844796428170950221, guid: fae81c6c8512450489330e122d89b682, type: 3}
-  Count: {fileID: 0}
-  Points: 0
   seed: 0
 --- !u!58 &8568701474962107353
 CircleCollider2D:
