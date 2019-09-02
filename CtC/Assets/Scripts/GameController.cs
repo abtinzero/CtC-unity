@@ -54,24 +54,23 @@ public class GameController : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Mode1")
         {
             time += Time.deltaTime;
-
+            interpolationPeriod = (5 / (Globaltime * 0.5f));
             if (time >= interpolationPeriod)
             {
                 
                 time = 0;
-                interpolationPeriod = (5 / (Globaltime*0.5f));
                 GenerateCircle();
                 
             }
         }
 
     }
-    void Gameover()
+   public void Gameover()
     {
         Points = 0;
+        BGBehaviour.lives = 3;
         SceneManager.LoadScene("MainMenu");
-        //Finish.enabled = true;
-        //Finish.text = "Finish: " + Points.ToString();
+        
     }
     public void GenerateCircle()
     {

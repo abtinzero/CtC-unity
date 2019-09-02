@@ -11,7 +11,6 @@ public class CircleBehaviour : MonoBehaviour
     
     
     public int seed;
-    
     void Start()
     {
         
@@ -26,6 +25,7 @@ public class CircleBehaviour : MonoBehaviour
     void OnMouseDown()
     {
         // this object was clicked - do something
+        BGBehaviour.lives++;
         GameController.Points++;
         Destroy(gameObject);
     }
