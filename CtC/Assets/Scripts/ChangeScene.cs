@@ -5,11 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class ChangeScene : MonoBehaviour
 {
-    // Update is called once per frame
-   public void ChangeToScene(string scenetoChangeto)
+    public void ChangeToScene(string scenetoChangeto)
     {
         SceneManager.LoadScene(scenetoChangeto);
     }
+
     public void Quit()
     {
         Application.Quit();

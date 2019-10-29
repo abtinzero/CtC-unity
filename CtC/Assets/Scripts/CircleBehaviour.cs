@@ -8,9 +8,9 @@ using UnityEngine.UI;
 public class CircleBehaviour : MonoBehaviour
 {
     // Start is called before the first frame update
-    
-    
+    public Animator animator;
     public int seed;
+
     void Start()
     {
         
@@ -22,12 +22,9 @@ public class CircleBehaviour : MonoBehaviour
        
     }
 
-    void OnMouseDown()
+    public void OnHit()
     {
-        // this object was clicked - do something
-        BGBehaviour.lives++;
-        GameController.Points++;
-        Destroy(gameObject);
+        animator.SetBool("Death", true);
+        //Destroy(gameObject);
     }
-  
 }

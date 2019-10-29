@@ -4,77 +4,57 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-
-
-public class GameController : MonoBehaviour
+public abstract class GameController : MonoBehaviour
 {
-    [SerializeField] Text Timer;
-    [SerializeField] Text Count;
-    [SerializeField] Text Finish;
-    [SerializeField] float Timeleft;
-    [SerializeField] float rate;
-    [SerializeField] Transform prefab;
-    float time;
-    float Globaltime;
-    public float interpolationPeriod;
-    public static int Points=0;
+    [SerializeField] protected Text Timer;
+    [SerializeField] protected Text Count;
+    [SerializeField] protected Text Finish;
+    [SerializeField] protected Transform prefab;
+
+    public static int Points = 0;
+
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Awake()
     {
-        if (SceneManager.GetActiveScene().name == "MainMenu")
+    }
+
+    protected virtual void Update()
+    {
+        CircleBehaviour circle;
+        Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        mouseRay.direction *= 10;
+
+        if (Input.GetButtonDown("Fire1"))
         {
-            Finish.text = "You Win" + Points;
-            
-        }
-        if (SceneManager.GetActiveScene().name == "Mode1")
-        {
-            //InvokeRepeating("GenerateCircle", 0, rate);
-            
+            if (Physics.Raycast(mouseRay, out RaycastHit hit))
+            {
+                circle = hit.transform.GetComponent<CircleBehaviour>();
+                if (circle != null)
+                    OnCircleHit(circle);
+                else
+                    OnBackgroundHit();
+            }
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    protected virtual void OnCircleHit(CircleBehaviour circle)
     {
-        Globaltime += Time.deltaTime;
-        rate += 0.1f;
-        if (SceneManager.GetActiveScene().name == "MainScene")
-        {
-            if (Timeleft <= 0)
-            {
-                Gameover();
-            }
-            else
-            {
-                Timeleft -= Time.deltaTime;
-            }
-            Timer.text = "Time: " + ((int)Timeleft).ToString();
-            Count.text = "Count: " + Points.ToString();
-        }
-        if (SceneManager.GetActiveScene().name == "Mode1")
-        {
-            time += Time.deltaTime;
-            interpolationPeriod = (5 / (Globaltime * 0.5f));
-            if (time >= interpolationPeriod)
-            {
-                
-                time = 0;
-                GenerateCircle();
-                
-            }
-        }
-
+        Points++;
+        circle.OnHit();
     }
-   public void Gameover()
+
+    protected virtual void OnBackgroundHit()
+    {
+    }
+
+    public void Gameover()
     {
         Points = 0;
-        BGBehaviour.lives = 3;
         SceneManager.LoadScene("MainMenu");
-        
     }
+
     public void GenerateCircle()
     {
         Instantiate(prefab, Random.insideUnitCircle * 2, Quaternion.identity);
     }
-    
 }
